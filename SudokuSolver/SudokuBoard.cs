@@ -14,6 +14,8 @@ namespace SudokuSolver {
       fixedNumbers = new bool[size, size];
     }
 
+
+
     public SudokuBoard(int?[,] numbers) : this() {
       for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
@@ -26,7 +28,19 @@ namespace SudokuSolver {
       }
     }
 
-    public void SetNumber(int i, int j, int number, bool fixedNumber = false) {
+    public override string ToString()
+    {
+        StringBuilder sb = new ();
+        for (int i = 0; i < size; i++){
+            for (int j = 0; j < size; j++){
+                sb.Append(board[i, j]+ " ");
+            }
+            sb.AppendLine();
+        }
+        return sb.ToString();
+    }
+
+        public void SetNumber(int i, int j, int number, bool fixedNumber = false) {
       board[i, j] = number;
       fixedNumbers[i, j] = fixedNumber;
     }
@@ -83,6 +97,8 @@ namespace SudokuSolver {
       }
       return status;
     }
+
+
     private BoardStatus CheckBlock(int square) {
       BoardStatus status = BoardStatus.Solved;
       Span<bool> foundNumbers = stackalloc bool[size + 1];
